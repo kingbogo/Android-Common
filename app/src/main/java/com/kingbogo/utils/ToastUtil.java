@@ -14,12 +14,12 @@ import android.widget.Toast;
  * ToastUtil (可统一定义Toast样式)
  * </pre>
  *
- * @author kingbogo
+ * @author kingbo
  */
 public class ToastUtil
 {
-
-    private static boolean IS_SHOW_CUSTOMTOAST = true;
+    private static boolean IS_SHOW_CUSTOMTOAST = false;
+    private static boolean IS_CENTER = true;
 
     private static Toast mToast;
 
@@ -33,9 +33,10 @@ public class ToastUtil
         }
     };
 
-    public static void init(boolean isShowCustom)
+    public static void init(boolean isShowCustom, boolean isCenter)
     {
         IS_SHOW_CUSTOMTOAST = isShowCustom;
+        IS_CENTER = isCenter;
     }
 
     public static void cancel()
@@ -71,16 +72,23 @@ public class ToastUtil
 
             if (mToast == null)
             {
-                mToast = new Toast(context);
-                mToast.setGravity(Gravity.CENTER, 0, 0);
-                mToast.setDuration(duration);
-
                 if (IS_SHOW_CUSTOMTOAST)
                 {
+                    mToast = new Toast(context);
+                    mToast.setDuration(duration);
                     View rootView = LinearLayout.inflate(context, R.layout.toast, null);
                     TextView msgTxt = (TextView) rootView.findViewById(R.id.toast_txt);
                     msgTxt.setText(text);
                     mToast.setView(rootView);
+                }
+                else
+                {
+                    mToast = Toast.makeText(context, text, duration);
+                }
+
+                if (IS_CENTER)
+                {
+                    mToast.setGravity(Gravity.CENTER, 0, 0);
                 }
             }
 
@@ -98,7 +106,7 @@ public class ToastUtil
         }
         else
         {
-            LogUtils.e("Toast内容为空。。。");
+            LogUtil.e("Toast内容为空。。。");
         }
     }
 

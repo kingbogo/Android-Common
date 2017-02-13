@@ -1,17 +1,15 @@
 package com.kingbogo.utils;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 /**
  * Log工具，类似android.util.Log。
  * tag自动产生，格式: customTagPrefix:className.methodName(L:lineNumber),
  * customTagPrefix为空时只输出：className.methodName(L:lineNumber)。
- * <p/>
  *
- * @author kingbogo
+ * @author kingbo
  */
-public class LogUtils
+public class LogUtil
 {
 
     public static String customTagPrefix = "Go";
@@ -36,7 +34,7 @@ public class LogUtils
         String callerClazzName = caller.getClassName();
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
         tag = String.format(tag, callerClazzName, caller.getMethodName(), caller.getLineNumber());
-        tag = TextUtils.isEmpty(customTagPrefix) ? tag : customTagPrefix + ":" + tag;
+        tag = isEmpty(customTagPrefix) ? tag : customTagPrefix + ":" + tag;
         return tag;
     }
 
@@ -178,6 +176,11 @@ public class LogUtils
     private static StackTraceElement getCallerStackTraceElement()
     {
         return Thread.currentThread().getStackTrace()[4];
+    }
+
+    private static boolean isEmpty(String str)
+    {
+        return str == null || str.length() == 0;
     }
 
 }

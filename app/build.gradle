@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 6
+        versionName "1.0.6"
     }
     buildTypes {
         release {
@@ -17,17 +17,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
 }
 
 publish {
-    userOrg = 'kingbogo'                                        //bintray.com username
-    groupId = 'com.kingbogo'                                    //jcenter url
-    artifactId = 'android-common-utils'                         //library name
-    publishVersion = '1.0.0'                                    //version
+    userOrg = 'kingbogo'                                        //bintray username
+    groupId = 'com.kingbogo'                                    //jcenter url；唯一包名
+    artifactId = 'android-common-utils'                         //library name；bintary创建的package名字
+    publishVersion = '1.0.6'                                    //version
     desc = 'Android common utils library.'                      //description
-    website = ''                                                //github url
+    website = 'https://github.com/kingbogo/Android-Common'      //github url
 }
